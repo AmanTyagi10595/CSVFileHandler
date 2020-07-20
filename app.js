@@ -50,24 +50,5 @@ app.listen(process.env.port || 4000, function () {
 });
 
 
-// var con = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "root2",
-//   database: "database2"
-// });
-
-// con.connect(function(err) {
-//   if (err) {
-//   console.log(err);
-//   }
-//   else{
-//     console.log("DB connected !");
-//     con.query("SELECT * FROM database.table1", function (err, result, fields) {
-//       if (err) throw err;
-//       console.log(result);
-//     });
-//   }
-// });
 module.exports = app;
-// module.exports.con = con;
+

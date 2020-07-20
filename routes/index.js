@@ -24,16 +24,6 @@ con.connect(function(err) {
    
   }
 });
-// app.use(cors());
-// app.use((req, res, next)=>{
-//   console.log("Use working")
-// req.header('Access-Control-Allow-Origin', "*");
-// req.header('Access-Control-Allow-Headers', "Origin-X-Requested-With, Content-Type, Accept, Authentication")
-// if(req.method == 'OPTIONS'){
-//   req.header('Access-Control-Allow-Method', 'PUT', 'POST', 'PATCH', 'DELETE', 'GET');
-//   return res.status(200).json({});
-// }
-// })
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // res.render('index', { title: 'Express' });
@@ -132,5 +122,36 @@ router.get('/getCsvData', function(req, res, next) {
       res.status(200).send({"result":result});
     });
     });
+    
+    router.post('/getPaginationData', function(req, res, next) {
+      console.log("API called to update one data", req.body)
+      var sql = `SELECT * FROM table1 limit ${req.body.skip},${req.body.limit}`
+      console.log("query",sql)
+      con.query(sql, function (err, result, fields) {
+        if (err) throw err;
+        res.status(200).send({"result":result});
+      });
+      });
+      
 
+      router.get('/getCountOfData', function(req, res, next) {
+        console.log("API called count of data")
+        con.query("SELECT COUNT(id) AS count FROM database2.table1", function (err, result, fields) {
+          if (err) throw err;
+          // console.log("result::", result[0].count)
+          res.status(200).send({"result":result[0]});  
+        });
+        });
+
+        router.get('/getAllCsvData', function(req, res, next) {
+          console.log("API called count of data")
+          con.query("SELECT * FROM database2.table1", function (err, result, fields) {
+            if (err) throw err;
+            // console.log("result::", result[0].count)
+            res.status(200).send({"result":result});  
+          });
+          });
+  
+        
 module.exports = router;
+ 
